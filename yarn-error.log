@@ -1,0 +1,43 @@
+Arguments: 
+  /Users/pataruco/.nvm/versions/node/v10.5.0/bin/node /Users/pataruco/.yarn/bin/yarn.js add aws-sedk
+
+PATH: 
+  /Users/pataruco/Development/sonar-scanner/bin:/Users/pataruco/.yarn/bin:/Users/pataruco/.config/yarn/global/node_modules/.bin:/Users/pataruco/.nvm/versions/node/v10.5.0/bin:/Users/pataruco/.rbenv/shims:/Users/pataruco/.rbenv/shims:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/Postgres.app/Contents/Versions/latest/bin:/Users/pataruco/Library/Android/sdk/tools:/Users/pataruco/Library/Android/sdk/tools/bin:/Users/pataruco/Library/Android/sdk/platform-tools
+
+Yarn version: 
+  1.7.0
+
+Node version: 
+  10.5.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/aws-sedk: Not found
+      at Request.params.callback [as _callback] (/Users/pataruco/.yarn/lib/cli.js:65656:18)
+      at Request.self.callback (/Users/pataruco/.yarn/lib/cli.js:134675:22)
+      at Request.emit (events.js:182:13)
+      at Request.<anonymous> (/Users/pataruco/.yarn/lib/cli.js:135658:10)
+      at Request.emit (events.js:182:13)
+      at IncomingMessage.<anonymous> (/Users/pataruco/.yarn/lib/cli.js:135578:12)
+      at Object.onceWrapper (events.js:273:13)
+      at IncomingMessage.emit (events.js:187:15)
+      at endReadableNT (_stream_readable.js:1081:12)
+      at process._tickCallback (internal/process/next_tick.js:63:19)
+
+npm manifest: 
+  {
+    "name": "pod-api",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "git@github.com:pataruco/pod-api.git",
+    "author": "Pedro Martin <pataruco@gmail.com>",
+    "license": "MIT"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
