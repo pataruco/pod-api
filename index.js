@@ -21,7 +21,7 @@ const getMAnifest = () => {
   return new Promise((resolve, reject) => {
     s3.getObject(params, (error, data) => {
       if (error) {
-        reject(console.error(error));
+        return reject(console.error(error));
       }
 
       const succcess = () => {
