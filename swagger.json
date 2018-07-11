@@ -5,20 +5,15 @@
     "title": "POD API",
     "version": "1"
   },
-  "schemes": [
-    "https",
-    "http"
-  ],
+  "schemes": ["https", "http"],
+  "host": "peteroftheday",
+  "basePath": "/api/v2",
   "paths": {
     "/dates": {
       "get": {
-        "tags": [
-          "dates"
-        ],
+        "tags": ["dates"],
         "summary": "List all dates available",
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -31,9 +26,7 @@
     },
     "/date/{dateId}": {
       "get": {
-        "tags": [
-          "date"
-        ],
+        "tags": ["date"],
         "summary": "Retrieve an specific date",
         "parameters": [
           {
@@ -44,9 +37,7 @@
             "type": "string"
           }
         ],
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -59,9 +50,7 @@
     },
     "/date/{dateId}/{fileId}": {
       "get": {
-        "tags": [
-          "date"
-        ],
+        "tags": ["date"],
         "summary": "Retrieve an specific file from a date",
         "parameters": [
           {
@@ -79,9 +68,7 @@
             "type": "string"
           }
         ],
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -94,9 +81,7 @@
     },
     "/date/{dateId}/random": {
       "get": {
-        "tags": [
-          "date"
-        ],
+        "tags": ["date"],
         "summary": "Retrieve a random file from a date",
         "parameters": [
           {
@@ -107,9 +92,7 @@
             "type": "string"
           }
         ],
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -122,13 +105,9 @@
     },
     "/updated": {
       "get": {
-        "tags": [
-          "updated"
-        ],
+        "tags": ["updated"],
         "summary": "Last update",
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "responses": {
           "200": {
             "description": "Successful operation",

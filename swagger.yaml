@@ -6,6 +6,8 @@ info:
 schemes:
   - https
   - http
+host: "peteroftheday"
+basePath: "/api/v2"
 paths:
   /dates:
     get:
