@@ -1,22 +1,12 @@
-const AWS = require("aws-sdk");
-const {
-  POD_AWS_ACCESS_KEY_ID,
-  POD_AWS_SECRET_ACCESS_KEY,
-  POD_BUCKET_NAME
-} = process.env;
-
-AWS.config.update({
-  accessKeyId: POD_AWS_ACCESS_KEY_ID,
-  secretAccessKey: POD_AWS_SECRET_ACCESS_KEY
-});
+const AWS = require('aws-sdk');
+const POD_BUCKET_NAME = 'peter-of-the-day';
 
 const s3 = new AWS.S3();
 
 const params = {
   Bucket: `${POD_BUCKET_NAME}/production/manifest`,
-  Key: "manifest.json"
+  Key: 'manifest.json',
 };
-
 const dateregex = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/gm;
 
 const getMAnifest = () => {
@@ -27,7 +17,7 @@ const getMAnifest = () => {
       }
 
       const succcess = () => {
-        return JSON.parse(data.Body.toString("utf-8"));
+        return JSON.parse(data.Body.toString('utf-8'));
       };
 
       resolve(succcess());
@@ -51,9 +41,7 @@ exports.handler = async event => {
         isBase64Encoded: false,
         statusCode: 200,
         headers: {},
-        body: JSON.stringify({
-          date
-        })
+        body: JSON.stringify(...date),
       };
     }
 
@@ -61,9 +49,7 @@ exports.handler = async event => {
       isBase64Encoded: false,
       statusCode: 204,
       headers: {},
-      body: JSON.stringify({
-        date
-      })
+      body: JSON.stringify(...date),
     };
   }
 
@@ -72,7 +58,7 @@ exports.handler = async event => {
     statusCode: 400,
     headers: {},
     body: JSON.stringify({
-      message: "date format should be ISO"
-    })
+      message: 'date format should be ISO',
+    }),
   };
 };

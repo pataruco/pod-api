@@ -1,20 +1,11 @@
-const AWS = require("aws-sdk");
-const {
-  POD_AWS_ACCESS_KEY_ID,
-  POD_AWS_SECRET_ACCESS_KEY,
-  POD_BUCKET_NAME
-} = process.env;
-
-AWS.config.update({
-  accessKeyId: POD_AWS_ACCESS_KEY_ID,
-  secretAccessKey: POD_AWS_SECRET_ACCESS_KEY
-});
+const AWS = require('aws-sdk');
+const POD_BUCKET_NAME = 'peter-of-the-day';
 
 const s3 = new AWS.S3();
 
 const params = {
   Bucket: `${POD_BUCKET_NAME}/production/manifest`,
-  Key: "manifest.json"
+  Key: 'manifest.json',
 };
 
 const getMAnifest = () => {
@@ -25,7 +16,7 @@ const getMAnifest = () => {
       }
 
       const succcess = () => {
-        return JSON.parse(data.Body.toString("utf-8"));
+        return JSON.parse(data.Body.toString('utf-8'));
       };
 
       resolve(succcess());
@@ -41,7 +32,7 @@ exports.handler = async () => {
     statusCode: 200,
     headers: {},
     body: JSON.stringify({
-      updated: manifest.updated
-    })
+      updated: manifest.updated,
+    }),
   };
 };
