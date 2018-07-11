@@ -10,5 +10,10 @@
   },
   "devDependencies": {
     "serverless": "^1.28.0"
+  },
+  "scripts": {
+    "start": "./node_modules/.bin/serverless offline -s dev",
+    "debug": "export SLS_DEBUG=* && node --debug ./node_modules/.bin/serverless offline -s dev",
+    "test": "mocha"
   }
 }

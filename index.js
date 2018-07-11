@@ -33,17 +33,7 @@ const getMAnifest = () => {
   });
 };
 
-module.exports.handler = (event, context, callback) => {
-  console.log("hit");
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: "Wohoo",
-      input: event
-    })
-  };
-
-  callback(null, response);
+exports.handler = (event, context, callback) => {
+  // Succeed with the string "Hello world!"
+  callback(null, "Hello world!");
 };
-
-// console.log(getMAnifest().then(data => console.log(data)));
