@@ -33,4 +33,17 @@ const getMAnifest = () => {
   });
 };
 
-console.log(getMAnifest().then(data => console.log(data)));
+module.exports.handler = (event, context, callback) => {
+  console.log("hit");
+  const response = {
+    statusCode: 200,
+    body: JSON.stringify({
+      message: "Wohoo",
+      input: event
+    })
+  };
+
+  callback(null, response);
+};
+
+// console.log(getMAnifest().then(data => console.log(data)));
