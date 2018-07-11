@@ -17,6 +17,8 @@ const params = {
   Key: "manifest.json"
 };
 
+const dateregex = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/gm;
+
 const getMAnifest = () => {
   return new Promise((resolve, reject) => {
     s3.getObject(params, (error, data) => {
@@ -33,15 +35,44 @@ const getMAnifest = () => {
   });
 };
 
-exports.handler = async () => {
+const getDate = (manifest, dateId) => {
+  return manifest.dates.filter(date => date.date === dateId);
+};
+
+exports.handler = async event => {
+  const dateId = event.pathParameters.dateId;
   const manifest = await getMAnifest();
+  const date = getDate(manifest, dateId);
+  const isDateString = dateregex.test(dateId);
+
+  if (isDateString) {
+    if (date.length > 0) {
+      return {
+        isBase64Encoded: false,
+        statusCode: 200,
+        headers: {},
+        body: JSON.stringify({
+          date
+        })
+      };
+    }
+
+    return {
+      isBase64Encoded: false,
+      statusCode: 204,
+      headers: {},
+      body: JSON.stringify({
+        date
+      })
+    };
+  }
 
   return {
     isBase64Encoded: false,
-    statusCode: 200,
+    statusCode: 400,
     headers: {},
     body: JSON.stringify({
-      updated: manifest.updated
+      message: "date format should be ISO"
     })
   };
 };

@@ -41,7 +41,7 @@ exports.handler = async () => {
     statusCode: 200,
     headers: {},
     body: JSON.stringify({
-      updated: manifest.updated
+      dates: manifest.dates
     })
   };
 };
