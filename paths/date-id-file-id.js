@@ -32,11 +32,20 @@ const getDate = (manifest, dateId) => {
 
 const getFile = (date, fileId) => {
   const index = parseInt(fileId, 10) - 1;
-  // const isFileAvailable
 
   if (date.length > 0) {
-    const imagePath = POD_URL + date[0].files[index].url;
-    return imagePath;
+    const isFileAvailable = index + 1 <= date[0].files.length;
+
+    if (isFileAvailable) {
+      const imagePath = POD_URL + date[0].files[index].url;
+      return imagePath;
+    }
+
+    if (!isFileAvailable) {
+      return {
+        message: "File not found"
+      };
+    }
   }
 
   if (date.length === 0) {
@@ -57,10 +66,19 @@ exports.handler = async event => {
     ? getFile(date, fileId)
     : { message: "file number should be a number" };
 
-  if (isDateString && date.length > 0 && isFileIdANumber) {
+  if (isDateString && date.length > 0 && isFileIdANumber && !file.message) {
     return {
       isBase64Encoded: false,
       statusCode: 200,
+      headers: {},
+      body: JSON.stringify(file)
+    };
+  }
+
+  if (isDateString && date.length > 0 && isFileIdANumber && file.message) {
+    return {
+      isBase64Encoded: false,
+      statusCode: 204,
       headers: {},
       body: JSON.stringify(file)
     };
