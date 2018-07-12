@@ -9,11 +9,9 @@
     "aws-sdk": "^2.271.1"
   },
   "devDependencies": {
-    "serverless": "^1.28.0"
+    "jest": "^23.4.0"
   },
   "scripts": {
-    "start": "./node_modules/.bin/serverless offline -s dev",
-    "debug": "export SLS_DEBUG=* && node --debug ./node_modules/.bin/serverless offline -s dev",
-    "test": "mocha"
+    "test": "jest test ."
   }
 }
