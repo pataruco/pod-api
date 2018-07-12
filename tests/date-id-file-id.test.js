@@ -69,4 +69,28 @@ describe("/date/dateId/fileId", () => {
       expect(await handler(event204)).toEqual(response);
     });
   });
+
+  describe("400", () => {
+    it("should return 400 when date string is malformed", async () => {
+      const event400 = {
+        pathParameters: {
+          dateId: "12-01-25",
+          fileId: "1"
+        }
+      };
+
+      const bodyResponse = {
+        message: "Date should be YYYY-MM-DD"
+      };
+
+      const response = {
+        isBase64Encoded: false,
+        statusCode: 400,
+        headers: {},
+        body: JSON.stringify(bodyResponse)
+      };
+
+      expect(await handler(event400)).toEqual(response);
+    });
+  });
 });

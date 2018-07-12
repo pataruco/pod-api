@@ -92,4 +92,15 @@ exports.handler = async event => {
       body: JSON.stringify(file)
     };
   }
+
+  if (!isDateString) {
+    return {
+      isBase64Encoded: false,
+      statusCode: 400,
+      headers: {},
+      body: JSON.stringify({
+        message: "Date should be YYYY-MM-DD"
+      })
+    };
+  }
 };
