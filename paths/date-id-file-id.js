@@ -1,5 +1,5 @@
 const AWS = require("aws-sdk");
-const POD_BUCKET_NAME = "peter-of-the-day";
+const { POD_BUCKET_NAME, POD_URL } = process.env;
 
 const s3 = new AWS.S3();
 
@@ -7,7 +7,8 @@ const params = {
   Bucket: `${POD_BUCKET_NAME}/production/manifest`,
   Key: "manifest.json"
 };
-const dateregex = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/gm;
+
+const dateregex = /^\d{4}-\d{2}-\d{2}$/;
 
 const getMAnifest = () => {
   return new Promise((resolve, reject) => {
@@ -26,14 +27,19 @@ const getMAnifest = () => {
 };
 
 const getDate = (manifest, dateId) => {
-  return manifest.dates.filter(date => date.date === dateId)[0];
+  return manifest.dates.filter(date => date.date === dateId);
 };
 
 const getFile = (date, fileId) => {
-  console.log("date ----------------------");
-  console.log(date);
-  const index = parseInt(fileId, 10) - 1;
-  return date.files[index].url;
+  if (date.length > 0) {
+    const index = parseInt(fileId, 10) - 1;
+    const imagePath = POD_URL + date[0].files[index].url;
+    return imagePath;
+  }
+
+  return {
+    message: "Date not found"
+  };
 };
 
 exports.handler = async event => {
@@ -45,10 +51,21 @@ exports.handler = async event => {
   const file = getFile(date, fileId);
   const isdateIdANumber = Number.isInteger(parseInt(fileId, 10));
 
-  return {
-    isBase64Encoded: false,
-    statusCode: 200,
-    headers: {},
-    body: JSON.stringify(file)
-  };
+  if (isDateString && date.length > 0 && isdateIdANumber) {
+    return {
+      isBase64Encoded: false,
+      statusCode: 200,
+      headers: {},
+      body: JSON.stringify(file)
+    };
+  }
+
+  if (isDateString && date.length === 0) {
+    return {
+      isBase64Encoded: false,
+      statusCode: 204,
+      headers: {},
+      body: JSON.stringify(file)
+    };
+  }
 };
