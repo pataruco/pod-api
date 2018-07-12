@@ -36,16 +36,16 @@ exports.handler = async event => {
   const date = getDate(manifest, dateId);
   const isDateString = dateregex.test(dateId);
 
-  if (isDateString) {
-    if (date.length > 0) {
-      return {
-        isBase64Encoded: false,
-        statusCode: 200,
-        headers: {},
-        body: JSON.stringify(...date)
-      };
-    }
+  if (isDateString && date.length > 0) {
+    return {
+      isBase64Encoded: false,
+      statusCode: 200,
+      headers: {},
+      body: JSON.stringify(...date)
+    };
+  }
 
+  if (isDateString && date.length === 0) {
     return {
       isBase64Encoded: false,
       statusCode: 204,
@@ -56,12 +56,14 @@ exports.handler = async event => {
     };
   }
 
-  return {
-    isBase64Encoded: false,
-    statusCode: 400,
-    headers: {},
-    body: JSON.stringify({
-      message: "date format should be ISO"
-    })
-  };
+  if (!isDateString) {
+    return {
+      isBase64Encoded: false,
+      statusCode: 400,
+      headers: {},
+      body: JSON.stringify({
+        message: "date format should be ISO"
+      })
+    };
+  }
 };
