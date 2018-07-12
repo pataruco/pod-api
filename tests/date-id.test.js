@@ -79,8 +79,6 @@ describe("/date/dateId", () => {
         }
       };
 
-      const bodyResponse = undefined;
-
       const response = {
         isBase64Encoded: false,
         statusCode: 204,
