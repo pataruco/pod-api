@@ -31,15 +31,19 @@ const getDate = (manifest, dateId) => {
 };
 
 const getFile = (date, fileId) => {
+  const index = parseInt(fileId, 10) - 1;
+  // const isFileAvailable
+
   if (date.length > 0) {
-    const index = parseInt(fileId, 10) - 1;
     const imagePath = POD_URL + date[0].files[index].url;
     return imagePath;
   }
 
-  return {
-    message: "Date not found"
-  };
+  if (date.length === 0) {
+    return {
+      message: "Date not found"
+    };
+  }
 };
 
 exports.handler = async event => {
@@ -47,11 +51,13 @@ exports.handler = async event => {
   const manifest = await getMAnifest();
   const date = getDate(manifest, dateId);
   const isDateString = dateregex.test(dateId);
+  const isFileIdANumber = Number.isInteger(parseInt(fileId, 10));
 
-  const file = getFile(date, fileId);
-  const isdateIdANumber = Number.isInteger(parseInt(fileId, 10));
+  const file = isFileIdANumber
+    ? getFile(date, fileId)
+    : { message: "file number should be a number" };
 
-  if (isDateString && date.length > 0 && isdateIdANumber) {
+  if (isDateString && date.length > 0 && isFileIdANumber) {
     return {
       isBase64Encoded: false,
       statusCode: 200,

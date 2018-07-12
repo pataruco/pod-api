@@ -25,7 +25,7 @@ describe("/date/dateId/fileId", () => {
   });
 
   describe("204", () => {
-    it("should return 200", async () => {
+    it("should return 204 when date is not available", async () => {
       const event204 = {
         pathParameters: {
           dateId: "2012-01-25",
@@ -46,5 +46,27 @@ describe("/date/dateId/fileId", () => {
 
       expect(await handler(event204)).toEqual(response);
     });
+
+    // it("should return 204 when date is not available", async () => {
+    //   const event204 = {
+    //     pathParameters: {
+    //       dateId: "2017-01-25",
+    //       fileId: "9"
+    //     }
+    //   };
+
+    //   const bodyResponse = {
+    //     message: "File not found"
+    //   };
+
+    //   const response = {
+    //     isBase64Encoded: false,
+    //     statusCode: 204,
+    //     headers: {},
+    //     body: JSON.stringify(bodyResponse)
+    //   };
+
+    //   expect(await handler(event204)).toEqual(response);
+    // });
   });
 });
