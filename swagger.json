@@ -79,19 +79,10 @@
         }
       }
     },
-    "/date/{dateId}/random": {
+    "/random": {
       "get": {
-        "tags": ["date"],
+        "tags": ["random"],
         "summary": "Retrieve a random file from a date",
-        "parameters": [
-          {
-            "name": "dateId",
-            "in": "path",
-            "description": "The id of the date to retrieve",
-            "required": true,
-            "type": "string"
-          }
-        ],
         "produces": ["application/json"],
         "responses": {
           "200": {
