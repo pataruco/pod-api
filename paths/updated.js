@@ -1,14 +1,5 @@
 const AWS = require("aws-sdk");
-const {
-  POD_AWS_ACCESS_KEY_ID,
-  POD_AWS_SECRET_ACCESS_KEY,
-  POD_BUCKET_NAME
-} = process.env;
-
-AWS.config.update({
-  accessKeyId: POD_AWS_ACCESS_KEY_ID,
-  secretAccessKey: POD_AWS_SECRET_ACCESS_KEY
-});
+const { POD_BUCKET_NAME } = process.env;
 
 const s3 = new AWS.S3();
 
@@ -33,7 +24,15 @@ const getMAnifest = () => {
   });
 };
 
-exports.handler = (event, context, callback) => {
-  // Succeed with the string "Hello world!"
-  callback(null, "Hello world!");
+exports.handler = async () => {
+  const manifest = await getMAnifest();
+
+  return {
+    isBase64Encoded: false,
+    statusCode: 200,
+    headers: {},
+    body: JSON.stringify({
+      updated: manifest.updated
+    })
+  };
 };
