@@ -39,7 +39,7 @@ exports.handler = async () => {
 
   return {
     isBase64Encoded: false,
-    statusCode: 204,
+    statusCode: 200,
     headers: {},
     body: JSON.stringify(file)
   };
