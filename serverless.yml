@@ -43,4 +43,6 @@ functions:
     environment:
       POD_BUCKET_NAME: ${env:POD_BUCKET_NAME}
       POD_URL: ${env:POD_URL}
+  base:
+    handler: paths/base.handler
     
