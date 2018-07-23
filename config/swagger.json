@@ -7,8 +7,23 @@
   },
   "schemes": ["https", "http"],
   "host": "peteroftheday",
-  "basePath": "/api/v2",
+  "basePath": "/",
   "paths": {
+    "/": {
+      "get": {
+        "tags": ["base"],
+        "summary": "description of the API",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "description of endpoints",
+            "schema": {
+              "$ref": "#/definitions/ApiDescription"
+            }
+          }
+        }
+      }
+    },
     "/dates": {
       "get": {
         "tags": ["dates"],
@@ -44,6 +59,18 @@
             "schema": {
               "$ref": "#/definitions/Date"
             }
+          },
+          "204": {
+            "description": "Date not found",
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          },
+          "400": {
+            "description": "Date format should be ISO",
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
           }
         }
       }
@@ -68,12 +95,30 @@
             "type": "string"
           }
         ],
-        "produces": ["application/json"],
+        "produces": ["application/json", "image/jpeg"],
         "responses": {
           "200": {
             "description": "Successful operation",
+            "headers": {
+              "Content-type": {
+                "type": "string",
+                "description": "Type of file"
+              }
+            },
             "schema": {
               "$ref": "#/definitions/File"
+            }
+          },
+          "204": {
+            "description": "Content not found",
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
+            }
+          },
+          "400": {
+            "description": "Date should be YYYY-MM-DD",
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
             }
           }
         }
@@ -82,13 +127,25 @@
     "/random": {
       "get": {
         "tags": ["random"],
-        "summary": "Retrieve a random file from a date",
-        "produces": ["application/json"],
+        "summary": "Retrieve a random file",
+        "produces": ["application/json", "image/jpeg"],
         "responses": {
           "200": {
             "description": "Successful operation",
+            "headers": {
+              "Content-type": {
+                "type": "string",
+                "description": "Type of file"
+              }
+            },
             "schema": {
               "$ref": "#/definitions/File"
+            }
+          },
+          "400": {
+            "description": "picture not found",
+            "schema": {
+              "$ref": "#/definitions/ErrorMessage"
             }
           }
         }
@@ -148,6 +205,26 @@
       "description": "date of the last update",
       "properties": {
         "update": {
+          "type": "string"
+        }
+      }
+    },
+    "ErrorMessage": {
+      "type": "object",
+      "description": "Error message",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "ApiDescription": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "schema": {
           "type": "string"
         }
       }
