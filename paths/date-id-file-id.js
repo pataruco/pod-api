@@ -26,6 +26,26 @@ const getMAnifest = () => {
   });
 };
 
+const getPicture = fileName => {
+  const pictureParams = {
+    Bucket: `${POD_BUCKET_NAME}`,
+    Key: fileName
+  };
+  return new Promise((resolve, reject) => {
+    s3.getObject(pictureParams, (error, data) => {
+      if (error) {
+        return reject(console.error(error));
+      }
+
+      const succcess = () => {
+        return data.Body.toString("base64");
+      };
+
+      resolve(succcess());
+    });
+  });
+};
+
 const getDate = (manifest, dateId) => {
   return manifest.dates.filter(date => date.date === dateId);
 };
@@ -37,7 +57,7 @@ const getFile = (date, fileId) => {
     const isFileAvailable = index + 1 <= date[0].files.length;
 
     if (isFileAvailable) {
-      const imagePath = POD_URL + date[0].files[index].url;
+      const imagePath = date[0].files[index].url;
       return imagePath;
     }
 
@@ -68,10 +88,12 @@ exports.handler = async event => {
 
   if (isDateString && date.length > 0 && isFileIdANumber && !file.message) {
     return {
-      isBase64Encoded: false,
+      isBase64Encoded: true,
       statusCode: 200,
-      headers: {},
-      body: JSON.stringify(file)
+      headers: {
+        "Content-type": "image/jpeg"
+      },
+      body: await getPicture(file)
     };
   }
 
