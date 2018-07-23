@@ -14,6 +14,7 @@
   },
   "scripts": {
     "test": "jest",
-    "deploy": "./node_modules/.bin/serverless deploy"
+    "deploy": "./node_modules/.bin/serverless deploy",
+    "serverless:config": "./node_modules/.bin/serverless config"
   }
 }
