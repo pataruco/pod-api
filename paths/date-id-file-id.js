@@ -46,6 +46,8 @@ const getPicture = fileName => {
   });
 };
 
+exports.getPicture = getPicture;
+
 const getDate = (manifest, dateId) => {
   return manifest.dates.filter(date => date.date === dateId);
 };

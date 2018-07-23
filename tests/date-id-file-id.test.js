@@ -1,5 +1,4 @@
-const { handler } = require("../paths/date-id-file-id");
-const { POD_URL } = process.env;
+const { getPicture, handler } = require("../paths/date-id-file-id");
 
 describe("/date/dateId/fileId", () => {
   describe("200", () => {
@@ -11,13 +10,15 @@ describe("/date/dateId/fileId", () => {
         }
       };
 
-      const bodyResponse = POD_URL + "production/2017-01-25_2.jpeg";
+      const file = "production/2017-01-25_2.jpeg";
 
       const response = {
-        isBase64Encoded: false,
+        isBase64Encoded: true,
         statusCode: 200,
-        headers: {},
-        body: JSON.stringify(bodyResponse)
+        headers: {
+          "Content-type": "image/jpeg"
+        },
+        body: await getPicture(file)
       };
 
       expect(await handler(event200)).toEqual(response);

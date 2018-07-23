@@ -6,7 +6,7 @@ info:
 schemes:
   - https
   - http
-host: "peteroftheday"
+host: "api.peteroftheday.com"
 basePath: "/"
 paths:
   /dates:
@@ -61,6 +61,10 @@ paths:
       responses:
         200:
           description: Successful operation
+          headers:
+            'Content-type':
+              type: string
+              description: Type of file
           schema:
             $ref: '#/definitions/File'
   /random:
