@@ -55,7 +55,7 @@ exports.handler = async () => {
   const randomDate = manifest.dates[randomDateNumber - 1];
   const maxFileNumber = randomDate.files.length;
   const randomFileNumber = getRandomNumber(maxFileNumber);
-  const file = POD_URL + randomDate.files[randomFileNumber - 1].url;
+  const file = randomDate.files[randomFileNumber - 1].url;
 
   if (file) {
     return {
@@ -64,7 +64,7 @@ exports.handler = async () => {
       headers: {
         "Content-type": "image/jpeg"
       },
-      body: await getPicture(fileName)
+      body: await getPicture(file)
     };
   }
 
