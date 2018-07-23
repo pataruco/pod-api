@@ -7,7 +7,7 @@ schemes:
   - https
   - http
 host: "peteroftheday"
-basePath: "/api/v2"
+basePath: "/"
 paths:
   /dates:
     get:
@@ -17,7 +17,7 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        200:
           description: Successful operation
           schema:
             $ref: '#/definitions/Dates'
@@ -35,7 +35,7 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        200:
           description: Successful operation
           schema:
             $ref: '#/definitions/Date'
@@ -57,8 +57,9 @@ paths:
           type: string
       produces:
         - application/json
+        - image/jpeg
       responses:
-        '200':
+        200:
           description: Successful operation
           schema:
             $ref: '#/definitions/File'
@@ -69,8 +70,9 @@ paths:
       summary: Retrieve a random file from a date
       produces:
         - application/json
+        - image/jpeg
       responses:
-        '200':
+        200:
           description: Successful operation
           schema:
             $ref: '#/definitions/File'
@@ -82,11 +84,10 @@ paths:
       produces:
         - application/json
       responses:
-        '200':
+        200:
           description: Successful operation
           schema:
             $ref: '#/definitions/Update'
-
 definitions:
   Dates:
     type: array
