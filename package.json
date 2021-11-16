@@ -6,7 +6,7 @@
   "author": "Pedro Martin <pataruco@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "aws-sdk": "^2.271.1",
+    "aws-sdk": "^2.814.0",
     "serverless": "^1.28.0"
   },
   "devDependencies": {
